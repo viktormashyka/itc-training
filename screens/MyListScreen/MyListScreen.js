@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   labelText: {
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
   },
