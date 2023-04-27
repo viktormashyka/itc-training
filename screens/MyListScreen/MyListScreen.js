@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Button,
@@ -8,15 +8,17 @@ import {
   FlatList,
   TextInput,
   Dimensions,
+  Modal,
+  Pressable,
 } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 
 const data = [
-  {name: 'Edward', language: 'English', place: 'Uk'},
+  {name: 'Edward', language: 'English', place: 'England'},
   {name: 'Viktor', language: 'Ukrainian', place: 'Scotland'},
   {name: 'Anusha', language: 'Hindi', place: 'India'},
-  {name: 'Lakshmi', language: 'Tamil', place: 'India'},
+  {name: 'Lakshmiravali', language: 'Tamil', place: 'India'},
 ];
 
 function MyListScreen({navigation}) {
@@ -24,12 +26,17 @@ function MyListScreen({navigation}) {
   const [userName, setUserName] = useState('');
   const [userLanguage, setUserLanguage] = useState('');
   const [userPlace, setUserPlace] = useState('');
+  const [modalVisible, setModalVible] = useState(false);
+
+  useEffect(() => {
+    console.log('navigation: ', navigation);
+  }, [navigation]);
 
   const renderCellItem = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.renderItem}
-        onPress={() => navigation.navigate('ListItem', {data: item})}>
+        onPress={() => navigation.navigate('List item', {data: item})}>
         <Text style={styles.text}>{item.name}</Text>
       </TouchableOpacity>
     );
@@ -115,6 +122,30 @@ function MyListScreen({navigation}) {
           />
         </View>
         {userInputView()}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+            setModalVisible(!modalVisible);
+          }}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        <Pressable
+          style={[styles.button, styles.buttonOpen]}
+          onPress={() => setModalVisible(true)}>
+          <Text style={styles.textStyle}>Show Modal</Text>
+        </Pressable>
       </View>
       <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
     </View>
@@ -124,14 +155,21 @@ function MyListScreen({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'lightgreen',
   },
-  outputContainer: {flex: 1, gap: 10, backgroundColor: '#F5F5F2'},
+  outputContainer: {
+    flex: 1,
+    gap: 10,
+    // backgroundColor: '#F5F5F2',
+    backgroundColor: 'lightgreen',
+    paddingHorizontal: 40,
+  },
   inputContainer: {
     flex: 1,
     gap: 10,
+    backgroundColor: 'lightgreen',
   },
   inputField: {
     borderRadius: 4,
@@ -142,6 +180,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'blue',
+    // backgroundColor: 'green',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 4,
@@ -152,19 +191,63 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     textAlign: 'center',
+    fontFamily: 'Georgia',
   },
   labelText: {
     fontSize: 24,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'Georgia',
   },
-  text: {fontSize: 16, fontWeight: 'bold'},
+  text: {fontSize: 16, fontWeight: 'bold', fontFamily: 'Georgia'},
   renderItem: {
     height: 40,
     width: windowWidth,
     borderBottomWidth: 0.5,
   },
   listEmpty: {height: 50, justifyContent: 'center', alignItems: 'center'},
+
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  // button: {
+  //   borderRadius: 20,
+  //   padding: 10,
+  //   elevation: 2,
+  // },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
 });
 
 export default MyListScreen;

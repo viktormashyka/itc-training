@@ -37,7 +37,7 @@ function DetailsScreen({navigation}) {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            navigation.navigate('ProfileDetails', {
+            navigation.navigate('Profile details', {
               inputFirstName,
               inputLastName,
               inputAge,

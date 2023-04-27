@@ -20,12 +20,6 @@ function ProfileDetailsScreen({navigation, route}) {
             navigation.navigate('Home');
           }}
         />
-        <Button
-          title="Go to Details"
-          onPress={() => {
-            navigation.navigate('Details');
-          }}
-        />
       </View>
     </View>
   );

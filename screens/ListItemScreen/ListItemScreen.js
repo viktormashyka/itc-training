@@ -7,9 +7,16 @@ function ListItemScreen(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Name: {data?.name}</Text>
-      <Text style={styles.text}>Language: {data?.language}</Text>
-      <Text style={styles.text}>Place: {data?.place}</Text>
+      <Text style={styles.labelText}>User data:</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Name: {data?.name}</Text>
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Language: {data?.language}</Text>
+      </View>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>Place: {data?.place}</Text>
+      </View>
       <View style={styles.buttonContainer}>
         <Button
           title="Go to Home"
@@ -17,12 +24,12 @@ function ListItemScreen(props) {
             props.navigation.navigate('Home');
           }}
         />
-        <Button
+        {/* <Button
           title="Go to My list"
           onPress={() => {
             props.navigation.navigate('MyList');
           }}
-        />
+        /> */}
       </View>
     </View>
   );
@@ -46,11 +53,32 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    gap: 10,
+    backgroundColor: 'lightgreen',
   },
   buttonContainer: {flex: 1, gap: 10, justifyContent: 'flex-end'},
+  labelText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'Georgia',
+  },
   text: {
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'Georgia',
+  },
+  textContainer: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    borderColor: 'lightblue',
+    borderRadius: 4,
+    borderWidth: 5,
+    width: 300,
+    height: 50,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    backgroundColor: 'lightblue',
   },
 });
 

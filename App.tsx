@@ -1,20 +1,23 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+// import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import HomeScreen from './screens/HomeScreen/HomeScreen';
-import DetailsScreen from './screens/DetailsScreen/DetailsScreen';
-import FlexTestScreen from './screens/FlexTestScreen/FlexTestScreen';
-import MyListScreen from './screens/MyListScreen/MyListScreen';
-import ProfileDetailsScreen from './screens/ProfileDetailsScreen/ProfileDetailsScreen';
-import ListItemScreen from './screens/ListItemScreen/ListItemScreen';
+import Navigation from './navigate';
 
-const Stack = createNativeStackNavigator();
+// import HomeScreen from './screens/HomeScreen/HomeScreen';
+// import DetailsScreen from './screens/DetailsScreen/DetailsScreen';
+// import FlexTestScreen from './screens/FlexTestScreen/FlexTestScreen';
+// import MyListScreen from './screens/MyListScreen/MyListScreen';
+// import ProfileDetailsScreen from './screens/ProfileDetailsScreen/ProfileDetailsScreen';
+// import ListItemScreen from './screens/ListItemScreen/ListItemScreen';
+
+// const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Navigation />
+      {/* <Stack.Navigator>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -26,26 +29,26 @@ function App() {
           options={{title: 'Details'}}
         />
         <Stack.Screen
-          name="ProfileDetails"
+          name="Profile details"
           component={ProfileDetailsScreen}
-          options={{title: 'ProfileDetails'}}
+          options={{title: 'Profile details'}}
         />
         <Stack.Screen
-          name="FlexTest"
+          name="Flex test"
           component={FlexTestScreen}
-          options={{title: 'FlexTest'}}
+          options={{title: 'Flex test'}}
         />
         <Stack.Screen
-          name="MyList"
+          name="My list"
           component={MyListScreen}
-          options={{title: 'MyList'}}
+          options={{title: 'My list'}}
         />
         <Stack.Screen
-          name="ListItem"
+          name="List item"
           component={ListItemScreen}
-          options={{title: 'ListItem'}}
+          options={{title: 'User data'}}
         />
-      </Stack.Navigator>
+      </Stack.Navigator> */}
     </NavigationContainer>
   );
 }
