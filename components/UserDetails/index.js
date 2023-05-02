@@ -21,6 +21,7 @@ class UserDetails extends React.Component {
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('userdetails > shouldComponentDidUpdate');
   //   return (
   //     !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state)
   //   );
@@ -48,9 +49,14 @@ class UserDetails extends React.Component {
     console.log('userdetails > componentDidUpdate');
 
     if (!_.isEqual(prevProps, this.props)) {
-      this.state.firstName = this.props.user.firstName;
-      this.state.lastName = this.props.user.lastName;
-      this.state.gender = this.props.user.gender;
+      // this.state.firstName = this.props.user.firstName;
+      // this.state.lastName = this.props.user.lastName;
+      // this.state.gender = this.props.user.gender;
+      this.setState({
+        firstName: this.props?.user?.firstName,
+        lastName: this.props?.user?.lastName,
+        gender: this.props?.user?.gender,
+      });
     }
 
     //
@@ -79,7 +85,7 @@ class UserDetails extends React.Component {
   }
 
   renderPersonalFields = () => {
-    const {firstName, lastName, gender, age, dob} = this.state;
+    const {firstName, lastName, gender} = this.state;
 
     return (
       <>
@@ -110,58 +116,6 @@ class UserDetails extends React.Component {
       </>
     );
   };
-
-  // renderContactFields = () => {
-  //   const {contactNumber, homePhone} = this.state;
-
-  //   return (
-  //     <>
-  //       <TextInput
-  //         style={styles.inputField}
-  //         onChangeText={changedText => {
-  //           this.setState({contactNumber: changedText});
-  //         }}
-  //         value={contactNumber}
-  //         placeholder="Contact Number"
-  //       />
-
-  //       <TextInput
-  //         style={styles.inputField}
-  //         onChangeText={changedText => {
-  //           this.setState({homePhone: changedText});
-  //         }}
-  //         value={homePhone}
-  //         placeholder="Home Number"
-  //       />
-  //     </>
-  //   );
-  // };
-
-  // renderEducationalFields = () => {
-  //   const {education, degree} = this.state;
-
-  //   return (
-  //     <>
-  //       <TextInput
-  //         style={styles.inputField}
-  //         onChangeText={changedText => {
-  //           this.setState({education: changedText});
-  //         }}
-  //         value={education}
-  //         placeholder="Education"
-  //       />
-
-  //       <TextInput
-  //         style={styles.inputField}
-  //         onChangeText={changedText => {
-  //           this.setState({degree: changedText});
-  //         }}
-  //         value={degree}
-  //         placeholder="Name of Degree"
-  //       />
-  //     </>
-  //   );
-  // };
 
   render() {
     console.log('userdetails > render');
