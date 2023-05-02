@@ -12,6 +12,10 @@ import {
   Pressable,
 } from 'react-native';
 
+import {UserForm} from '../../components';
+
+import {ModalForm} from '../../components';
+
 const windowWidth = Dimensions.get('window').width;
 
 const data = [
@@ -21,22 +25,22 @@ const data = [
   {name: 'Lakshmiravali', language: 'Tamil', place: 'India'},
 ];
 
-function MyListScreen({navigation}) {
+function MyListScreen(props) {
   const [listData, setListData] = useState(data);
-  const [userName, setUserName] = useState('');
-  const [userLanguage, setUserLanguage] = useState('');
-  const [userPlace, setUserPlace] = useState('');
-  const [modalVisible, setModalVible] = useState(false);
+
+  const [jumpText, setJumpText] = useState('');
 
   useEffect(() => {
-    console.log('navigation: ', navigation);
-  }, [navigation]);
+    if (props?.route?.params?.owner) {
+      setJumpText(props?.route?.params?.owner);
+    }
+  }, [props]);
 
   const renderCellItem = ({item, index}) => {
     return (
       <TouchableOpacity
         style={styles.renderItem}
-        onPress={() => navigation.navigate('List item', {data: item})}>
+        onPress={() => props.navigation.navigate('List item', {data: item})}>
         <Text style={styles.text}>{item.name}</Text>
       </TouchableOpacity>
     );
@@ -62,47 +66,18 @@ function MyListScreen({navigation}) {
     return <View style={{backgroundColor: 'black', height: 5}}></View>;
   };
 
-  const userInputView = () => {
+  const renderFlatList = () => {
     return (
-      <View style={styles.inputContainer}>
-        <Text style={styles.labelText}>Input User data:</Text>
-        <TextInput
-          style={styles.inputField}
-          onChangeText={changeText => setUserName(changeText)}
-          value={userName}
-          placeholder="User name"
+      <View style={styles.outputContainer}>
+        <Text style={styles.labelText}>My list</Text>
+        <FlatList
+          data={listData}
+          renderItem={renderCellItem}
+          ListEmptyComponent={renderEmptyListMessage}
+          ItemSeparatorComponent={renderSeparatorItem}
+          ListHeaderComponent={renderHeaderList}
+          ListFooterComponent={renderFooterList}
         />
-        <TextInput
-          style={styles.inputField}
-          onChangeText={changeText => setUserLanguage(changeText)}
-          value={userLanguage}
-          placeholder="User language"
-        />
-        <TextInput
-          style={styles.inputField}
-          onChangeText={changeText => setUserPlace(changeText)}
-          value={userPlace}
-          placeholder="User place"
-        />
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            if (!userName || !userLanguage || !userPlace) {
-              return;
-            }
-            const newUserRecord = {
-              name: userName,
-              language: userLanguage,
-              place: userPlace,
-            };
-            console.log(newUserRecord);
-            setListData([...listData, newUserRecord]);
-            setUserName('');
-            setUserLanguage('');
-            setUserPlace('');
-          }}>
-          <Text style={styles.buttonText}>Insert</Text>
-        </TouchableOpacity>
       </View>
     );
   };
@@ -110,44 +85,18 @@ function MyListScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
-        <View style={styles.outputContainer}>
-          <Text style={styles.labelText}>My list</Text>
-          <FlatList
-            data={listData}
-            renderItem={renderCellItem}
-            ListEmptyComponent={renderEmptyListMessage}
-            ItemSeparatorComponent={renderSeparatorItem}
-            ListHeaderComponent={renderHeaderList}
-            ListFooterComponent={renderFooterList}
-          />
-        </View>
-        {userInputView()}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            setModalVisible(!modalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
-              <Pressable
-                style={[styles.button, styles.buttonClose]}
-                onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalVisible(true)}>
-          <Text style={styles.textStyle}>Show Modal</Text>
-        </Pressable>
+        {renderFlatList()}
+        <UserForm
+          onFormSubmit={userObject => {
+            setListData([...listData, userObject]);
+          }}
+        />
+        <ModalForm />
       </View>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Button
+        title="Go to Home"
+        onPress={() => props.navigation.navigate('Home')}
+      />
     </View>
   );
 }
@@ -162,7 +111,6 @@ const styles = StyleSheet.create({
   outputContainer: {
     flex: 1,
     gap: 10,
-    // backgroundColor: '#F5F5F2',
     backgroundColor: 'lightgreen',
     paddingHorizontal: 40,
   },
@@ -180,7 +128,6 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'blue',
-    // backgroundColor: 'green',
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 4,
@@ -206,48 +153,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
   },
   listEmpty: {height: 50, justifyContent: 'center', alignItems: 'center'},
-
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  // button: {
-  //   borderRadius: 20,
-  //   padding: 10,
-  //   elevation: 2,
-  // },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
 });
 
 export default MyListScreen;

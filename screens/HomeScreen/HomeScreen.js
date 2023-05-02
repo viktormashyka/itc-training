@@ -25,6 +25,14 @@ function HomeScreen({navigation}) {
           title="Go to My list"
           onPress={() => navigation.navigate('My list')}
         />
+        <Button
+          title="Go to Images"
+          onPress={() => navigation.navigate('Images screen')}
+        />
+        <Button
+          title="Go to User"
+          onPress={() => navigation.navigate('User')}
+        />
       </View>
     </View>
   );

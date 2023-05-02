@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Button, Text, StyleSheet} from 'react-native';
 
-import Flex from '../../containers/FlexContainer/FlexContainer';
+import Flex from '../../components/FlexContainer/FlexContainer';
 
 function FlexTestScreen({navigation}) {
   return (
