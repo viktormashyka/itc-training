@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Modal, Text, Pressable} from 'react-native';
 import styles from './styles';
 
-const ModalForm = () => {
+const ModalForm = ({children}) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View>
@@ -16,7 +16,7 @@ const ModalForm = () => {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+            <Text style={styles.modalText}>{children}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>

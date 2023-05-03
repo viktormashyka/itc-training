@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Children} from 'react';
 import {
   View,
   Button,
@@ -91,7 +91,11 @@ function MyListScreen(props) {
             setListData([...listData, userObject]);
           }}
         />
-        <ModalForm />
+        <ModalForm>
+          <>
+            <Text>Good by</Text>
+          </>
+        </ModalForm>
       </View>
       <Button
         title="Go to Home"

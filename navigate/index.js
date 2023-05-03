@@ -1,7 +1,8 @@
 import React from 'react';
-// import {NavigationContainer} from '@react-navigation/native';
+import {Button} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-ionicons';
 
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import DetailsScreen from '../screens/DetailsScreen/DetailsScreen';
@@ -11,20 +12,64 @@ import ProfileDetailsScreen from '../screens/ProfileDetailsScreen/ProfileDetails
 import ListItemScreen from '../screens/ListItemScreen/ListItemScreen';
 import {ImagesScreen} from '../screens';
 import {UserScreen} from '../screens';
+import {LoginScreen} from '../screens';
+import {RegisterScreen} from '../screens';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const isUserLoggedIn = true;
+const isUserLoggedIn = false;
 
-const Navigation = () => {
+const Navigation = ({navigation}) => {
   const getHomeStack = () => {
     return (
       <Stack.Group>
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{title: 'Home'}}
+          options={{
+            title: 'Home',
+            headerStyle: {backgroundColor: '#f4511e'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontFamily: 'Georgia',
+              fontSize: 16,
+            },
+            headerRight: () => (
+              <Button
+                onPress={() => {
+                  navigation.navigate('Login');
+                }}
+                title="Log out"
+                color="#fff"
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="Flex test"
+          component={FlexTestScreen}
+          options={{tabBarLabel: 'Flex test'}}
+        />
+        <Stack.Screen
+          name="Images screen"
+          component={ImagesScreen}
+          options={{title: 'Images'}}
+        />
+        <Stack.Screen
+          name="My list"
+          component={MyListScreen}
+          options={{title: 'My list'}}
+        />
+        <Stack.Screen
+          name="List item"
+          component={ListItemScreen}
+          options={{title: 'User data'}}
+        />
+        <Stack.Screen
+          name="User"
+          component={UserScreen}
+          options={{title: 'User'}}
         />
         <Stack.Screen
           name="Details"
@@ -44,74 +89,130 @@ const Navigation = () => {
     return (
       <Stack.Group>
         <Stack.Screen
-          name="Images screen"
-          component={ImagesScreen}
-          options={{title: 'Images'}}
+          name="Login"
+          component={LoginScreen}
+          options={{title: 'Login', headerShown: false}}
         />
         <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{title: 'Register', headerShown: false}}
+        />
+        {/* <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{title: 'Home'}}
-        />
-        <Stack.Screen
-          name="My list"
-          component={MyListScreen}
-          options={{title: 'My list'}}
-        />
-        <Stack.Screen
-          name="List item"
-          component={ListItemScreen}
-          options={{title: 'User data'}}
-        />
-        <Stack.Screen
-          name="User"
-          component={UserScreen}
-          options={{title: 'User'}}
-        />
+          options={{
+            title: 'Home',
+            headerStyle: {backgroundColor: '#f4511e'},
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontFamily: 'Georgia',
+              fontSize: 16,
+            },
+            headerRight: () => (
+              <Button
+                onPress={() => {
+                  navigation.navigate('Login');
+                }}
+                title="Log out"
+                color="#fff"
+              />
+            ),
+          }}
+        /> */}
       </Stack.Group>
     );
   };
 
-  //   const getTabNavigator = () => {
-  //     return (
-  //       <Tab.Navigator>
-  //         <Tab.Screen
-  //           name="Flex test"
-  //           component={FlexTestScreen}
-  //           options={{tabBarLabel: 'Flex test'}}
-  //         />
-  //         <Tab.Screen
-  //           name="Home"
-  //           component={HomeScreen}
-  //           options={{title: 'Home'}}
-  //         />
-  //         <Tab.Screen
-  //           name="My list"
-  //           component={MyListScreen}
-  //           options={{title: 'My list'}}
-  //         />
-  //         <Tab.Screen
-  //           name="List item"
-  //           component={ListItemScreen}
-  //           options={{title: 'User data'}}
-  //         />
-  //       </Tab.Navigator>
-  //     );
-  //   };
-  let initialRouteName = '';
-  if (isUserLoggedIn) {
-    initialRouteName = 'User';
-  } else {
-    initialRouteName = 'Home';
-  }
+  // const getTabNavigator = () => {
+  //   return (
+  //     <Tab.Navigator>
+  //       <Tab.Screen
+  //         name="Flex test"
+  //         component={FlexTestScreen}
+  //         options={{tabBarLabel: 'Flex test'}}
+  //       />
+  //       <Tab.Screen
+  //         name="Home"
+  //         component={HomeScreen}
+  //         options={{title: 'Home'}}
+  //       />
+  //       <Tab.Screen
+  //         name="My list"
+  //         component={MyListScreen}
+  //         options={{title: 'My list'}}
+  //       />
+  //       <Tab.Screen
+  //         name="List item"
+  //         component={ListItemScreen}
+  //         options={{title: 'User data'}}
+  //       />
+  //     </Tab.Navigator>
+  //   );
+  // };
+
+  const getHomeTab = () => {
+    return (
+      <Tab.Group>
+        <Tab.Screen
+          name="Flex test"
+          component={FlexTestScreen}
+          options={{tabBarLabel: 'Flex test'}}
+        />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{title: 'Home'}}
+        />
+        <Tab.Screen
+          name="My list"
+          component={MyListScreen}
+          options={{title: 'My list'}}
+        />
+        <Tab.Screen
+          name="List item"
+          component={ListItemScreen}
+          options={{title: 'User data'}}
+        />
+      </Tab.Group>
+    );
+  };
 
   return (
-    <Stack.Navigator initialRouteName={initialRouteName}>
-      {isUserLoggedIn ? getAuthStack() : getHomeStack()}
-    </Stack.Navigator>
+    <>
+      {isUserLoggedIn ? (
+        <Stack.Navigator initialRouteName="Login">
+          {getAuthStack()}
+        </Stack.Navigator>
+      ) : (
+        <Tab.Navigator
+          initialRouteName="Home"
+          screenOptions={({route}) => ({
+            tabBarIcon: ({focused, color, size}) => {
+              let iconName;
+              if (route.name === 'Posts') {
+                iconName = focused ? 'grid' : 'grid-outline';
+              } else if (route.name === 'CreatePosts') {
+                iconName = focused ? 'add-circle' : 'add-circle-outline';
+              } else if (route.name === 'Profile') {
+                iconName = focused ? 'person' : 'person-outline';
+              }
+              return <Icon name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'grey',
+          })}>
+          {getHomeTab()}
+        </Tab.Navigator>
+      )}
+    </>
   );
 
   // return getTabNavigator();
 };
+
+// <Stack.Navigator initialRouteName={initialRouteName}>
+//   {isUserLoggedIn ? getAuthStack() : getHomeStack()}
+// </Stack.Navigator>
 
 export default Navigation;

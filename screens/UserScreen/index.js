@@ -7,7 +7,8 @@ import {
   TextInput,
   Button,
 } from 'react-native';
-import {UserDetails} from '../../components';
+// import {UserDetails} from '../../components';
+import {UserDetailsFunc} from '../../components';
 import _ from 'lodash';
 
 class UserScreen extends React.Component {
@@ -47,7 +48,14 @@ class UserScreen extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: '#ECA1A1'}}>
         <ScrollView>
-          <UserDetails user={user} />
+          {/* <UserDetails user={user} /> */}
+          <UserDetailsFunc user={user} />
+          <Button
+            title="Show state in console"
+            onPress={() => {
+              console.log('Input text: ', user);
+            }}
+          />
           <Button
             title="Change text on Ali"
             onPress={() => {

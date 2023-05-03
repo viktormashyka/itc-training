@@ -6,6 +6,8 @@ import MyListScreen from './MyListScreen/MyListScreen';
 import ProfileDetailsScreen from './ProfileDetailsScreen/ProfileDetailsScreen';
 import ImagesScreen from './ImagesScreen';
 import UserScreen from './UserScreen';
+import LoginScreen from './LoginScreen/LoginScreen';
+import RegisterScreen from './RegisterScreen/RegisterScreen';
 
 export {
   HomeScreen,
@@ -16,4 +18,6 @@ export {
   ProfileDetailsScreen,
   ImagesScreen,
   UserScreen,
+  LoginScreen,
+  RegisterScreen,
 };
