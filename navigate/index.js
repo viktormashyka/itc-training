@@ -177,35 +177,16 @@ const Navigation = ({navigation}) => {
       </Tab.Group>
     );
   };
-
+  let initialRouteName = '';
+  if (isUserLoggedIn) {
+    initialRouteName = 'Home';
+  } else {
+    initialRouteName = 'Login';
+  }
   return (
-    <>
-      {isUserLoggedIn ? (
-        <Stack.Navigator initialRouteName="Login">
-          {getAuthStack()}
-        </Stack.Navigator>
-      ) : (
-        <Tab.Navigator
-          initialRouteName="Home"
-          screenOptions={({route}) => ({
-            tabBarIcon: ({focused, color, size}) => {
-              let iconName;
-              if (route.name === 'Posts') {
-                iconName = focused ? 'grid' : 'grid-outline';
-              } else if (route.name === 'CreatePosts') {
-                iconName = focused ? 'add-circle' : 'add-circle-outline';
-              } else if (route.name === 'Profile') {
-                iconName = focused ? 'person' : 'person-outline';
-              }
-              return <Icon name={iconName} size={size} color={color} />;
-            },
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'grey',
-          })}>
-          {getHomeTab()}
-        </Tab.Navigator>
-      )}
-    </>
+    <Stack.Navigator initialRouteName={initialRouteName}>
+      {isUserLoggedIn ? getAuthStack() : getHomeStack()}
+    </Stack.Navigator>
   );
 
   // return getTabNavigator();
@@ -216,3 +197,31 @@ const Navigation = ({navigation}) => {
 // </Stack.Navigator>
 
 export default Navigation;
+
+// <>
+//   {isUserLoggedIn ? (
+//     <Stack.Navigator initialRouteName="Login">
+//       {getAuthStack()}
+//     </Stack.Navigator>
+//   ) : (
+//     <Tab.Navigator
+//       initialRouteName="Home"
+//       screenOptions={({route}) => ({
+//         tabBarIcon: ({focused, color, size}) => {
+//           let iconName;
+//           if (route.name === 'Posts') {
+//             iconName = focused ? 'grid' : 'grid-outline';
+//           } else if (route.name === 'CreatePosts') {
+//             iconName = focused ? 'add-circle' : 'add-circle-outline';
+//           } else if (route.name === 'Profile') {
+//             iconName = focused ? 'person' : 'person-outline';
+//           }
+//           return <Icon name={iconName} size={size} color={color} />;
+//         },
+//         tabBarActiveTintColor: 'tomato',
+//         tabBarInactiveTintColor: 'grey',
+//       })}>
+//       {getHomeTab()}
+//     </Tab.Navigator>
+//   )}
+// </>;

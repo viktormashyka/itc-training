@@ -6,7 +6,7 @@ import Navigation from './navigate';
 function App() {
   return (
     <NavigationContainer>
-      <Navigation />
+      <Navigation navigation={undefined} />
     </NavigationContainer>
   );
 }
