@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -14,13 +14,30 @@ import {ImagesScreen} from '../screens';
 import {UserScreen} from '../screens';
 import {LoginScreen} from '../screens';
 import {RegisterScreen} from '../screens';
+import {PracticeContextScreen} from '../screens';
+
+import {EventRegister} from 'react-native-event-listeners';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const isUserLoggedIn = false;
+// const isUserLoggedIn = true;
 
 const Navigation = ({navigation}) => {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+
+  useEffect(() => {
+    const listener = EventRegister.addEventListener('myCustomEvent', data => {
+      //   setIsUserLoggedIn(false)
+      //   this.setState({
+      //     data,
+      //   });
+
+      console.log('data: ', data);
+      setIsUserLoggedIn(data);
+    });
+  }, []);
+
   const getHomeStack = () => {
     return (
       <Stack.Group>
@@ -38,7 +55,11 @@ const Navigation = ({navigation}) => {
             headerRight: () => (
               <Button
                 onPress={() => {
-                  navigation.navigate('Login');
+                  setIsUserLoggedIn(false);
+                  EventRegister.emit(
+                    'myCustomEvent',
+                    'it is Check Out button!',
+                  );
                 }}
                 title="Log out"
                 color="#fff"
@@ -80,6 +101,11 @@ const Navigation = ({navigation}) => {
           name="Profile details"
           component={ProfileDetailsScreen}
           options={{title: 'Profile details'}}
+        />
+        <Stack.Screen
+          name="Practice context"
+          component={PracticeContextScreen}
+          options={{title: 'Practice context'}}
         />
       </Stack.Group>
     );
@@ -185,7 +211,7 @@ const Navigation = ({navigation}) => {
   }
   return (
     <Stack.Navigator initialRouteName={initialRouteName}>
-      {isUserLoggedIn ? getAuthStack() : getHomeStack()}
+      {isUserLoggedIn ? getHomeStack() : getAuthStack()}
     </Stack.Navigator>
   );
 
