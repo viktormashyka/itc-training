@@ -11,6 +11,8 @@ import {UserDetailsFunc} from '../../components';
 import _ from 'lodash';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {EventRegister} from 'react-native-event-listeners';
+
 // const initialState = {
 //   user: {
 //     firstName: '',
@@ -30,7 +32,7 @@ const UserScreen = props => {
   console.log('UserScreen props: ', props);
 
   const [user, setUser] = useState({});
-  const [sampleTextinput, setSampleTextinput] = useState('');
+  const [sampleTextInput, setSampleTextInput] = useState('');
   const [celciusVal, setCelciusVal] = useState(30);
 
   // useEffect(() => {
@@ -95,6 +97,11 @@ const UserScreen = props => {
       const userObjectStringified = JSON.stringify(userObject);
 
       AsyncStorage.setItem('userObjectStr', userObjectStringified);
+      // we can add any data to listener 'myCustomEvent'
+      // EventRegister.emit('myCustomEvent', 'it is text button on User Screen!');
+
+      //we path boolean false to listener myCustomEvent
+      EventRegister.emit('myCustomEvent', false);
     },
     [user, celciusVal],
   );
@@ -156,10 +163,10 @@ const UserScreen = props => {
             paddingHorizontal: 10,
           }}
           onChangeText={changedText => {
-            setSampleTextinput(changedText);
+            setSampleTextInput(changedText);
           }}
-          value={sampleTextinput}
-          placeholder="TextInput on userscreen"
+          value={sampleTextInput}
+          placeholder="TextInput on user screen"
         />
       </ScrollView>
       <Button

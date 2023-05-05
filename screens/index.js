@@ -8,6 +8,8 @@ import ImagesScreen from './ImagesScreen';
 import UserScreen from './UserScreen';
 import LoginScreen from './LoginScreen/LoginScreen';
 import RegisterScreen from './RegisterScreen/RegisterScreen';
+import PracticeContextScreen from './PracticeContextScreen/PracticeContextScreen';
+import PracticeAPIScreen from './PracticeAPIScreen/PracticeAPIScreen';
 
 export {
   HomeScreen,
@@ -20,4 +22,6 @@ export {
   UserScreen,
   LoginScreen,
   RegisterScreen,
+  PracticeContextScreen,
+  PracticeAPIScreen,
 };

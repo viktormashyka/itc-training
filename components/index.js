@@ -6,6 +6,7 @@ import FlatListContainer from './FlatListContainer';
 import FastImagePlaceholder from './FastImagePlaceholder';
 import UserDetails from './UserDetails';
 import UserDetailsFunc from './UserDetailsFunc/UserDetailsFunc';
+import TestAPIlist from './TestAPI/TestAPI';
 
 export {
   Flex,
@@ -16,4 +17,5 @@ export {
   FastImagePlaceholder,
   UserDetails,
   UserDetailsFunc,
+  TestAPIlist,
 };

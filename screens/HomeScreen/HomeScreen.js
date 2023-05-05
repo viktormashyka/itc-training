@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
+// import {EventRegister} from 'react-native-event-listeners';
 
 function HomeScreen({navigation}) {
   return (
@@ -32,6 +33,14 @@ function HomeScreen({navigation}) {
         <Button
           title="Go to User"
           onPress={() => navigation.navigate('User')}
+        />
+        <Button
+          title="Go to Practice context"
+          onPress={() => navigation.navigate('Practice context')}
+        />
+        <Button
+          title="Go to Practice API"
+          onPress={() => navigation.navigate('Practice API')}
         />
       </View>
     </View>
