@@ -38,6 +38,10 @@ function HomeScreen({navigation}) {
           title="Go to Practice context"
           onPress={() => navigation.navigate('Practice context')}
         />
+        <Button
+          title="Go to Practice API"
+          onPress={() => navigation.navigate('Practice API')}
+        />
       </View>
     </View>
   );

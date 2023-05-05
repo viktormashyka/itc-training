@@ -15,6 +15,7 @@ import {UserScreen} from '../screens';
 import {LoginScreen} from '../screens';
 import {RegisterScreen} from '../screens';
 import {PracticeContextScreen} from '../screens';
+import {PracticeAPIScreen} from '../screens';
 
 import {EventRegister} from 'react-native-event-listeners';
 
@@ -106,6 +107,11 @@ const Navigation = ({navigation}) => {
           name="Practice context"
           component={PracticeContextScreen}
           options={{title: 'Practice context'}}
+        />
+        <Stack.Screen
+          name="Practice API"
+          component={PracticeAPIScreen}
+          options={{title: 'Practice API'}}
         />
       </Stack.Group>
     );
