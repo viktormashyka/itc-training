@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Button} from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-ionicons';
 
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import DetailsScreen from '../screens/DetailsScreen/DetailsScreen';
@@ -28,12 +27,7 @@ const Navigation = ({navigation}) => {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
 
   useEffect(() => {
-    const listener = EventRegister.addEventListener('myCustomEvent', data => {
-      //   setIsUserLoggedIn(false)
-      //   this.setState({
-      //     data,
-      //   });
-
+    const listener = EventRegister.addEventListener('checkInEvent', data => {
       console.log('data: ', data);
       setIsUserLoggedIn(data);
     });
@@ -57,10 +51,6 @@ const Navigation = ({navigation}) => {
               <Button
                 onPress={() => {
                   setIsUserLoggedIn(false);
-                  EventRegister.emit(
-                    'myCustomEvent',
-                    'it is Check Out button!',
-                  );
                 }}
                 title="Log out"
                 color="#fff"
