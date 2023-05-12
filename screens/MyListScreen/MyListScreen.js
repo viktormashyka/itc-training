@@ -27,15 +27,35 @@ const data = [
 
 function MyListScreen(props) {
   const [listData, setListData] = useState(data);
-
   const [jumpText, setJumpText] = useState('');
+
+  const filteredUserByLanguage = data.filter(element => {
+    return element.place === 'India';
+  });
+  const findUserByLanguage = data.find(element => {
+    return element.place === 'India';
+  });
+  const findIndexUserByLanguage = data.findIndex(element => {
+    return element.place === 'India';
+  });
+  const allUsers = data.map(element => {
+    return {
+      firstName: element.name,
+      language: element.language,
+      place: element.place,
+      message: 'Name: ' + element.name + ', ' + 'Place: ' + element.place,
+    };
+  });
+  console.log('filteredUserByLanguage: ', filteredUserByLanguage);
+  console.log('findUserByLanguage', findUserByLanguage);
+  console.log('findIndexUserByLanguage', findIndexUserByLanguage);
+  console.log('allUsers: ', allUsers);
 
   useEffect(() => {
     if (props?.route?.params?.owner) {
       setJumpText(props?.route?.params?.owner);
     }
   }, [props]);
-
   const renderCellItem = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -45,7 +65,6 @@ function MyListScreen(props) {
       </TouchableOpacity>
     );
   };
-
   const renderEmptyListMessage = () => {
     return (
       <View style={styles.listEmpty}>
@@ -53,19 +72,15 @@ function MyListScreen(props) {
       </View>
     );
   };
-
   const renderSeparatorItem = () => {
     return <View style={{backgroundColor: 'grey', height: 5}}></View>;
   };
-
   const renderHeaderList = () => {
     return <View style={{backgroundColor: 'black', height: 5}}></View>;
   };
-
   const renderFooterList = () => {
     return <View style={{backgroundColor: 'black', height: 5}}></View>;
   };
-
   const renderFlatList = () => {
     return (
       <View style={styles.outputContainer}>
