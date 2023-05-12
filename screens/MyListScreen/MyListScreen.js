@@ -46,10 +46,32 @@ function MyListScreen(props) {
       message: 'Name: ' + element.name + ', ' + 'Place: ' + element.place,
     };
   });
+  const allUserByName = data.map(el => el.name);
+  const sortedUserByName = allUserByName.sort((a, b) => a.localeCompare(b));
+  const sortedUserByNameReverse = allUserByName.sort((a, b) =>
+    b.localeCompare(a),
+  );
+  console.log('====================================');
   console.log('filteredUserByLanguage: ', filteredUserByLanguage);
+  console.log('====================================');
+  console.log('====================================');
   console.log('findUserByLanguage', findUserByLanguage);
+  console.log('====================================');
+  console.log('====================================');
   console.log('findIndexUserByLanguage', findIndexUserByLanguage);
+  console.log('====================================');
+  console.log('====================================');
   console.log('allUsers: ', allUsers);
+  console.log('====================================');
+  console.log('====================================');
+  console.log('allUserByName: ', allUserByName);
+  console.log('====================================');
+  console.log('====================================');
+  console.log('sortedUserByName: ', sortedUserByName);
+  console.log('====================================');
+  console.log('====================================');
+  console.log('sortedUserByNameReverse: ', sortedUserByNameReverse);
+  console.log('====================================');
 
   useEffect(() => {
     if (props?.route?.params?.owner) {
